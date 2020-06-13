@@ -1,2 +1,3 @@
 # leet_code
-leet code problems which i have solved
+collection of some of my leet code solutions
+hopefully i will be able to use them as a reference when i encounter similar problems formulations appear
