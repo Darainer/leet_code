@@ -58,7 +58,7 @@ public:
 class Solution_logn {
 public:
     int search(vector<int>& nums, int target) {
-
+        if (nums.size() == 0){return -1;}  // leet code likes to test with empty vectors
         //find pivot by searching for smallest array element
         int lhs = 0;
         int rhs = nums.size() -1;
@@ -82,21 +82,25 @@ public:
             lhs= pivot;
             rhs= nums.size()-1;
         }
-        while(lhs<rhs){
-            mid = lhs + (rhs - lhs)/2;
+        int output = binary_search(nums, lhs, rhs, target);
+        return output;
+        } 
+    private: 
+        int binary_search(vector<int>& nums, int lhs,int rhs,int target){
+            while(lhs<=rhs){                // if lhs==rhs we still test and return mid or -1
+            int mid = lhs + (rhs - lhs)/2;  // calculate mid first, so that it is only needed once
             if (nums.at(mid) == target ){
                 return mid;
             }
-            else if (target < nums.at(mid)){
-                rhs = mid;
+            else if (nums.at(mid)<target){
+                lhs = mid + 1;  // have just tested mid, so can eliminate from range for lhs and rhs
             }
             else{
-                lhs = mid;
+                rhs = mid -1;  
             }
-            
         }   
         return -1;  //couldnt find it
-        }  
+        }
 };
 
 
