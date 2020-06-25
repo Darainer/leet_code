@@ -17,6 +17,7 @@
 #include <vector>
 #include <stack>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -66,6 +67,7 @@ class Solution_iterative
 public:
     vector<int> postorderTraversal(TreeNode *root){
         deque<int> output;
+        vector<int> out2;
         stack<TreeNode*> node_stack;
         if (root)
         { // if root is null, will simply return empty output
@@ -76,7 +78,8 @@ public:
         {
             working_node = node_stack.top();     //take from LIFO stack
             node_stack.pop();                    //
-            output.push_front(working_node->val); // statement here leads to pre-order traversal
+            output.push_front(working_node->val); // statement here leads to pre-order traversal           
+            out2.push_back(working_node->val);
             if (working_node->left)
             {
                 node_stack.push(working_node->left); // push left child to stack if it is not null
@@ -86,7 +89,8 @@ public:
                 node_stack.push(working_node->right); // push right child to stack if it is not null
             }
         }
-        return {output.begin(), output.end()};
+        std::reverse(out2.begin(),out2.end());
+        return out2;
     }
 };
 
