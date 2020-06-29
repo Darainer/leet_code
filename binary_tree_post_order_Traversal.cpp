@@ -112,11 +112,11 @@ private:
         if (node->left != nullptr){
             add_value(node->left, tree_list);
         }
-        tree_list.push_back(node->val);
+        
         if (node->right != nullptr){
             add_value(node->right, tree_list);
         }
-
+        tree_list.push_back(node->val);
     }
 };
 
