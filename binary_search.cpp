@@ -8,47 +8,33 @@ using namespace std;
 class MyBinarySearch
 {
 public:
-    int binary_search(vector<int> &input, int key)
+    int search(vector<int>& nums, int target)
     {
         int left_pointer = 0;
-        int right_pointer = input.size() - 1;
-        int middle_pointer = (input.size() - 1) / 2;
+        int right_pointer = nums.size() - 1;
+        int middle_pointer = right_pointer / 2;
 
         //iteratively search
-        while (key != input.at(middle_pointer)){
-            if (middle_pointer == left_pointer){
-                if (input.at(right_pointer) == key){
-                    middle_pointer = right_pointer;
-                }
-                else{
-                    middle_pointer = -1;
-                }
+        while (target != nums.at(middle_pointer)){
+            if (left_pointer== right_pointer){
+                middle_pointer = -1;
                 break;
             }
-            if (middle_pointer == right_pointer){
-                if (input.at(left_pointer) == key){
-                    middle_pointer = left_pointer;
-                }
-                else{
-                    middle_pointer = -1;
-                }
-                break;
-            }
-            bounded_search(input, left_pointer, right_pointer, middle_pointer, key);
+            bounded_search(nums, left_pointer, right_pointer, middle_pointer, target);
         }
         return middle_pointer;
     }
 
 private:
-    void bounded_search(vector<int> &input, int &left_pointer, int &right_pointer, int &middle_pointer, int &key)
+    void bounded_search(vector<int> &nums, int &left_pointer, int &right_pointer, int &middle_pointer, int &target)
     {
-        if (key < input.at(middle_pointer))
+        if (target < nums.at(middle_pointer))
         {
-            right_pointer = middle_pointer;
+            right_pointer = middle_pointer-1;
         }
-        else if (key > input.at(middle_pointer))
+        else if (target > nums.at(middle_pointer))
         {
-            left_pointer = middle_pointer;
+            left_pointer = middle_pointer+1;
         }
         middle_pointer = left_pointer + (right_pointer - left_pointer) / 2;
     }
@@ -56,9 +42,10 @@ private:
 
 int main()
 {
-    vector<int> input{-4, -1, 6, 7, 11, 14, 17, 19, 25, 100, 200};
-    int keys{13};
+    //vector<int> nums{-4, -1, 6, 7, 11, 14, 17, 19, 25, 100, 200};
+    vector<int> nums{2,5};
+    int targets{2};
     MyBinarySearch search;
-    int output = search.binary_search(input, keys);
+    int output = search.search(nums, targets);
     cout << output << endl;
 }
