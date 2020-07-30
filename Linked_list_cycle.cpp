@@ -27,16 +27,16 @@ void const printList(ListNode* head){
 class Solution {
 public:
 bool hasCycle(ListNode* head){
-    if( head == nullptr || head->next == nullptr){return -1;}
+    if( head == nullptr || head->next == nullptr){return 0;}
     ListNode* slow_p {head};
     ListNode* fast_p {head->next};
 
     while(slow_p != fast_p){
-        if(slow_p == nullptr || fast_p == nullptr){         // if we can get to the end of the list, then its 
-            return 0;
+        if(fast_p == nullptr || fast_p->next == nullptr){         // if we can get to the end of the list, then its not cyclic
+            return 0;                                              // need to check if fast_p->next == nullptr or the access on the next assignment can be bogus
         }
-        slow_p = slow_p->next;
-        fast_p = fast_p->next->next;
+        slow_p = slow_p->next;                              // slow pointer moves one step at a time
+        fast_p = fast_p->next->next;                        // fast pointer here moves at double the speed. other speeds dont really seem useful since the checks get more complicated for no real gain
     }
     return 1;
 }
