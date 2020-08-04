@@ -1,21 +1,8 @@
-// binary_tree_levelorder_Traversal
-// Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
-// For example:
-// Given binary tree [3,9,20,null,null,15,7],
-//     3
-//    / \
-//   9  20
-//     /  \
-//    15   7
-// return its level order traversal as:
-// [
-//   [3],
-//   [9,20],
-//   [15,7]
-// ]
+//binary tree depth
 
 #include <vector>
 #include <queue>
+#include <stack>
 #include <iostream>
 #include <algorithm>
 
@@ -63,39 +50,9 @@ public:
     }
 };
 
-class Solution_iterative
+class Solution
 {
 public:
-    vector<vector<int>> levelorder_Traversal(TreeNode *root){
-        vector<vector<int>> output;
-        queue<TreeNode*> node_queue;
-        if (root)
-        { // if root is null, will simply return empty output
-            node_queue.push(root);
-        }
-        TreeNode *working_node;
-        int levels{0};
-        while (!node_queue.empty())
-        {
-            int level_size = node_queue.size()-1;
-            output.push_back({});
-            for( int i = 0; i <= level_size; i++ ){     //process nodes on current level from LIFO queue
-                working_node = node_queue.front();     
-                node_queue.pop();                    
-                output.at(levels).push_back(working_node->val);
-                if (working_node->left)
-                {
-                    node_queue.push(working_node->left); // push left child to queue if it is not null
-                }
-                if (working_node->right)
-                {
-                    node_queue.push(working_node->right); // push right child to queue if it is not null
-                }
-            }
-            levels++;
-        }
-        return output;
-    }
     int maxDepth(TreeNode* root) {
         queue<TreeNode*> node_queue;
         if (root)
@@ -125,6 +82,22 @@ public:
         }
         return max_depth;
     }
+
+    int maxDepth_recursive(TreeNode* root) {
+        if(root== nullptr){return 0;}
+        return getDepth(root,1);
+    }
+private:
+    int getDepth(TreeNode* current , int depth){
+        int left{depth}, right{depth};
+        if(current->left != nullptr) { 
+        left = getDepth(current->left, depth+1);
+        }
+         if(current->right != nullptr) { 
+        right = getDepth(current->right, depth+1);
+        }
+        return std::max(left,right);
+    }
 };
 
 
@@ -143,9 +116,9 @@ int main()
 {
     BinaryTreetest test1;
 
-    Solution_iterative sol_it;
-    vector<vector<int>> output_iterative = sol_it.levelorder_Traversal(test1.root);
-    print_test(output_iterative);
-    int depth = sol_it.maxDepth(test1.root);
+    Solution sol;
+    int depth = sol.maxDepth(test1.root);
+    int depth_rec = sol.maxDepth_recursive(test1.root);
     std::cout << "max tree depth = " << depth << endl; 
+    std::cout << "max tree depth = " << depth_rec << endl; 
 }
