@@ -1,21 +1,15 @@
 //Fizz Buzz
-//the classic
-
-//find pivot index with equal sum on each side
+//the classic test problem!
 
 #include <vector>
 #include <iostream>
 using namespace std;
 
-
-
 class Solution {
 public:
     vector<string> fizzBuzz(int n) {
-        
         vector<string> output{};
-        for(int i= 1; i<=n+1 ; ++i){
-        
+        for(int i= 1; i<=n ; ++i){
             if( (i%3)== 0  && (i%5)==0){
                 output.emplace_back("FizzBuzz");
             }    
@@ -28,7 +22,6 @@ public:
             else {
                 output.emplace_back(std::to_string(i));
             }
-
         }
         return output;
     }
