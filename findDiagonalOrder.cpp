@@ -41,6 +41,7 @@ void print_vector(std::vector<int> const &input){
 class Solution {
 public:
     vector<int> findDiagonalOrder(vector<vector<int>>& matrix) {
+    if(matrix.size()==0){return {};}
     vector<vector<int>> Result{};
     int row_idx = 0;
     int col_idx = 0;
@@ -51,7 +52,7 @@ public:
         fill_diagonal( matrix, Result.back(), 0, col_idx);
     }
     // go down the last column
-    for ( row_idx = 1; row_idx <= matrix[0].size()-1; ++row_idx){
+    for ( row_idx = 1; row_idx <= matrix.size()-1; ++row_idx){
         Result.push_back({});
         fill_diagonal( matrix, Result.back(), row_idx, matrix[0].size()-1);
     }
@@ -82,7 +83,8 @@ private:
 };
 
 int main(){
-    std::vector<std::vector<int>> input{{1, 2, 3}, {4, 5 , 6}, {7 , 8, 9}};
+    //std::vector<std::vector<int>> input{{1, 2, 3}, {4, 5 , 6}, {7 , 8, 9}};
+    std::vector<std::vector<int>> input{{3}, {2}};
     print_utils::print_matrix(input);
     Solution mysolution{};
     std::vector<int> answer = mysolution.findDiagonalOrder(input);
