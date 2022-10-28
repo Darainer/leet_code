@@ -26,7 +26,7 @@ Solution
 
 #include <ostream>
 #include <iostream>
-#include <list>
+#include <algorithm>
 
 using namespace std; 
 using std::ostream;
@@ -35,31 +35,17 @@ using std::ostream;
 class Solution {
 public:
     int minimumSum(int num) {
-    std::list<int> digits = split_integer(num);
-    digits.sort();
-    
-    int first= digits.front() * 10;
-    digits.pop_front();
-    int second = digits.front() * 10;
-    digits.pop_front();
-    first += digits.front();
-    digits.pop_front();
-    second += digits.front();
-    return first + second;
-
-    };
-    std::list<int> split_integer(int number){
-        std::list<int> digits{};
-        while (number >= 0){   // also want the leading zero
-            if (number == 0){ 
-                break;
-            }
-            int digit = number%10;
-            digits.push_back(digit);
-            number /= 10;
-            }
-        return digits;
+    int digits[4];
+        for (int i=0;i<4;i++)
+        {
+            digits[i]=num%10;
+            num=num/10;
+        }
+    sort(begin(digits),end(digits));
+    return 10*(digits[0]+digits[1])+digits[2]+digits[3];
     }
+
+
 };
 
 int main() {
