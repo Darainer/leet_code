@@ -89,8 +89,11 @@ class Solution:
         return total
 
 
-# roman = str("MCMXCIV")
-roman = str("DCXXI")  # 621
 s = Solution()
-int = s.romanToInt(roman)
-print(int)
+assert (1 == s.romanToInt("I"))
+assert (9 == s.romanToInt("IX"))
+assert (4 == s.romanToInt("IV"))
+assert (49 == s.romanToInt("XLIX"))
+assert (621 == s.romanToInt("DCXXI"))
+assert (1994 == s.romanToInt("MCMXCIV"))
+# print(int)
